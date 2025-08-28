@@ -1,0 +1,52 @@
+@import url("https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700&display=swap");
+
+body {
+  margin: 0;
+  line-height: normal;
+}
+:root {
+  /* Color */
+  --color-black: #000;
+  --color-firebrick-200: #c62127;
+  --color-firebrick-100: #d02c30;
+  --color-slateblue: #5e3fa5;
+  --color-white: #fff;
+  --color-whitesmoke: #f4f4f4;
+
+  /* Gap */
+  --gap-10: 10px;
+  --gap-18: 18px;
+  --gap-28: 28px;
+  --gap-30: 30px;
+  --gap-32: 32px;
+  --gap-36: 36px;
+  --gap-60: 60px;
+  --gap-64: 64px;
+  --gap-72: 72px;
+
+  /* Padding */
+  --padding-3: 3px;
+  --padding-6: 6px;
+  --padding-14: 14px;
+  --padding-20: 20px;
+  --padding-24: 24px;
+  --padding-36: 36px;
+  --padding-72: 72px;
+  --padding-80: 80px;
+
+  /* BorderRadius */
+  --br-16: 16px;
+  --br-24: 24px;
+  --br-36: 36px;
+
+  /* Font */
+  --font-rubik: Rubik;
+
+  /* FontSize */
+  --font-size-14: 14px;
+  --font-size-16: 16px;
+  --font-size-20: 20px;
+  --font-size-24: 24px;
+  --font-size-32: 32px;
+  --font-size-40: 40px;
+}

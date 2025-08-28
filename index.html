@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Презентация лестниц - конфигуратор" />
+    <title>Диз от Андрея - Конфигуратор лестниц</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Color */
+            --color-black: #000;
+            --color-firebrick-200: #c62127;
+            --color-firebrick-100: #d02c30;
+            --color-slateblue: #5e3fa5;
+            --color-white: #fff;
+            --color-whitesmoke: #f4f4f4;
+
+            /* Gap */
+            --gap-10: 10px;
+            --gap-18: 18px;
+            --gap-28: 28px;
+            --gap-30: 30px;
+            --gap-32: 32px;
+            --gap-36: 36px;
+            --gap-60: 60px;
+            --gap-64: 64px;
+            --gap-72: 72px;
+
+            /* Padding */
+            --padding-3: 3px;
+            --padding-6: 6px;
+            --padding-14: 14px;
+            --padding-20: 20px;
+            --padding-24: 24px;
+            --padding-36: 36px;
+            --padding-72: 72px;
+            --padding-80: 80px;
+
+            /* BorderRadius */
+            --br-16: 16px;
+            --br-24: 24px;
+            --br-36: 36px;
+
+            /* Font */
+            --font-rubik: 'Rubik', sans-serif;
+
+            /* FontSize */
+            --font-size-14: 14px;
+            --font-size-16: 16px;
+            --font-size-20: 20px;
+            --font-size-24: 24px;
+            --font-size-32: 32px;
+            --font-size-40: 40px;
+        }
+
+        body {
+            margin: 0;
+            line-height: normal;
+            font-family: var(--font-rubik);
+            background-color: var(--color-whitesmoke);
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .header h1 {
+            color: var(--color-firebrick-100);
+            font-size: var(--font-size-40);
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .header p {
+            color: var(--color-black);
+            font-size: var(--font-size-20);
+            font-weight: 400;
+            opacity: 0.8;
+        }
+
+        .stairs-configurator {
+            border-radius: var(--br-36);
+            max-width: 100%;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            justify-content: flex-start;
+            padding: 123px 65px 194px 42px;
+            box-sizing: border-box;
+            gap: var(--gap-60);
+            background-image: url('./sait/public/rectangle-64@2x.png');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            min-width: 278px;
+            text-align: center;
+            font-size: var(--font-size-14);
+            color: var(--color-firebrick-100);
+            font-family: var(--font-rubik);
+            min-height: 600px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .stairs-configurator::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(208, 44, 48, 0.1), rgba(94, 63, 165, 0.1));
+            z-index: 0;
+        }
+
+        .frame-wrapper {
+            align-self: stretch;
+            flex-direction: row;
+            display: flex;
+            align-items: flex-start;
+            justify-content: flex-start;
+            z-index: 1;
+        }
+
+        .frame-parent {
+            width: 150px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: flex-start;
+        }
+
+        .vector-wrapper {
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            justify-content: flex-start;
+            padding: 0 var(--padding-24);
+        }
+
+        .frame-item {
+            height: 10px;
+            width: 10px;
+            position: relative;
+            z-index: 1;
+            background: var(--color-firebrick-100);
+            border-radius: 50%;
+        }
+
+        .rectangle-group {
+            align-self: stretch;
+            border-radius: var(--br-24);
+            background-color: var(--color-white);
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            justify-content: flex-start;
+            z-index: 1;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .rectangle-group:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .step-label {
+            height: 48px;
+            flex: 1;
+            line-height: 20px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
+            z-index: 1;
+            color: var(--color-firebrick-100);
+        }
+
+        .frame-group {
+            width: 120px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            justify-content: flex-start;
+            gap: var(--gap-28);
+            z-index: 1;
+        }
+
+        .rectangle-container {
+            align-self: stretch;
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            justify-content: flex-start;
+            position: relative;
+        }
+
+        .rectangle-div {
+            height: 48px;
+            width: 100%;
+            position: absolute;
+            margin: 0 !important;
+            right: -120px;
+            bottom: -76px;
+            left: 120px;
+            border-radius: var(--br-24);
+            background-color: var(--color-white);
+            transform: rotate(-180deg);
+            transform-origin: 0 0;
+            z-index: 1;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .bumper-label {
+            flex: 1;
+            position: relative;
+            line-height: 20px;
+            font-weight: 600;
+            text-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
+            z-index: 2;
+            color: var(--color-firebrick-100);
+        }
+
+        .vector-container {
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            justify-content: flex-end;
+            padding: 0 var(--padding-24);
+        }
+
+        .rectangle-icon {
+            height: 10px;
+            width: 10px;
+            position: relative;
+            z-index: 1;
+            background: var(--color-firebrick-100);
+            border-radius: 50%;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 60px;
+        }
+
+        .feature-card {
+            background: var(--color-white);
+            padding: 30px;
+            border-radius: var(--br-24);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .feature-card h3 {
+            color: var(--color-firebrick-100);
+            font-size: var(--font-size-24);
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .feature-card p {
+            color: var(--color-black);
+            font-size: var(--font-size-16);
+            opacity: 0.8;
+            line-height: 1.6;
+        }
+
+        @media screen and (max-width: 675px) {
+            .stairs-configurator {
+                padding-top: var(--padding-80);
+                padding-bottom: 126px;
+                box-sizing: border-box;
+            }
+
+            .header h1 {
+                font-size: var(--font-size-32);
+            }
+        }
+
+        @media screen and (max-width: 450px) {
+            .stairs-configurator {
+                gap: var(--gap-30);
+                padding-left: var(--padding-20);
+                padding-right: var(--padding-20);
+                box-sizing: border-box;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+
+            body {
+                padding: 20px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Конфигуратор лестниц</h1>
+            <p>Проектирование и визуализация лестничных конструкций</p>
+        </header>
+
+        <section class="stairs-configurator">
+            <div class="frame-wrapper">
+                <div class="frame-parent">
+                    <div class="vector-wrapper">
+                        <div class="frame-item"></div>
+                    </div>
+                    <div class="rectangle-group">
+                        <div class="step-label">Подступенник</div>
+                    </div>
+                </div>
+            </div>
+            <div class="frame-group">
+                <div class="rectangle-container">
+                    <div class="rectangle-div"></div>
+                    <div class="bumper-label">Отбойник</div>
+                </div>
+                <div class="vector-container">
+                    <div class="rectangle-icon"></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="features">
+            <div class="feature-card">
+                <h3>Подступенники</h3>
+                <p>Настройка высоты, материала и дизайна подступенников для оптимального комфорта и безопасности.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Отбойники</h3>
+                <p>Защитные элементы лестницы, предотвращающие повреждения и обеспечивающие дополнительную безопасность.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Индивидуальный дизайн</h3>
+                <p>Персонализация каждого элемента лестницы в соответствии с вашими требованиями и интерьером.</p>
+            </div>
+        </section>
+    </div>
+</body>
+</html>
