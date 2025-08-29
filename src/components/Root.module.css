@@ -1,0 +1,154 @@
+.root {
+  width: 960px;
+  border-radius: var(--br-36);
+  background-color: var(--color-white);
+  max-width: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: flex-start;
+  padding: var(--padding-36) var(--padding-36) var(--padding-36)
+    var(--padding-72);
+  box-sizing: border-box;
+  gap: 52px;
+  line-height: normal;
+  letter-spacing: normal;
+}
+.frameGroup,
+.frameParent,
+.rectangleParent {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.frameParent {
+  width: 372px;
+  flex-direction: column;
+  gap: 40px;
+  max-width: 100%;
+  text-align: center;
+  font-size: var(--font-size-20);
+  color: var(--color-white);
+  font-family: var(--font-rubik);
+}
+.frameGroup,
+.rectangleParent {
+  flex-direction: row;
+}
+.frameGroup {
+  gap: 16px;
+}
+.rectangleParent {
+  width: 36px;
+  border-radius: 9px;
+  background-color: var(--color-firebrick-100);
+  padding: var(--padding-6) 0 5px;
+  box-sizing: border-box;
+}
+.frameChild,
+.h3 {
+  position: relative;
+}
+.frameChild {
+  height: 36px;
+  width: 36px;
+  border-radius: 9px;
+  background-color: var(--color-firebrick-100);
+  display: none;
+}
+.h3 {
+  margin: 0;
+  flex: 1;
+  font-size: inherit;
+  font-weight: 400;
+  font-family: inherit;
+  z-index: 1;
+}
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: var(--padding-6) 0 0;
+  text-align: left;
+  color: var(--color-firebrick-100);
+}
+.h32 {
+  margin: 0;
+  position: relative;
+  font-size: inherit;
+  font-weight: 400;
+  font-family: inherit;
+}
+.parent {
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 48px;
+  text-align: left;
+  font-size: var(--font-size-40);
+  color: var(--color-black);
+}
+.h1 {
+  position: relative;
+  font-size: inherit;
+  font-weight: 500;
+  font-family: inherit;
+}
+.h1,
+.p {
+  margin: 0;
+}
+.loremIpsumDolor {
+  position: relative;
+  font-size: var(--font-size-16);
+  line-height: 24px;
+  font-weight: 300;
+}
+.b {
+  position: relative;
+  font-size: var(--font-size-20);
+  color: var(--color-firebrick-100);
+}
+@media screen and (max-width: 750px) {
+  .root {
+    flex-wrap: wrap;
+  }
+  .frameParent {
+    flex: 1;
+  }
+  .h1 {
+    font-size: var(--font-size-32);
+  }
+}
+@media screen and (max-width: 675px) {
+  .root {
+    gap: 26px;
+    padding-left: var(--padding-36);
+    box-sizing: border-box;
+  }
+  .frameParent {
+    min-width: 100%;
+  }
+}
+@media screen and (max-width: 450px) {
+  .frameParent {
+    gap: 20px;
+  }
+  .h3,
+  .h32 {
+    font-size: var(--font-size-16);
+  }
+  .parent {
+    gap: 24px;
+  }
+  .h1 {
+    font-size: var(--font-size-24);
+  }
+  .b {
+    font-size: var(--font-size-16);
+  }
+}
