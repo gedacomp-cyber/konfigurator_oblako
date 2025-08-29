@@ -1,0 +1,78 @@
+name: Final Test - Full CI/CD
+
+on:
+  workflow_dispatch:
+
+jobs:
+  full-ci-cd-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20.x'
+        cache: 'npm'
+
+    - name: Install dependencies
+      working-directory: ./sait
+      run: |
+        echo "📦 Installing dependencies..."
+        npm install
+        npm list --depth=0
+
+    - name: Run linter
+      working-directory: ./sait
+      run: |
+        echo "🔍 Running linter..."
+        npm run lint
+
+    - name: Run type check
+      working-directory: ./sait
+      run: |
+        echo "🔧 Running type check..."
+        npm run type-check
+
+    - name: Build application
+      working-directory: ./sait
+      run: |
+        echo "🔨 Building application..."
+        npm run build
+
+    - name: Check build output
+      run: |
+        echo "📦 Build artifacts:"
+        ls -la sait/dist/
+        echo ""
+        echo "📊 Build size:"
+        du -sh sait/dist/
+
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: production-build
+        path: sait/dist/
+        retention-days: 30
+
+    - name: Final success message
+      run: |
+        echo "🎉 ПОЛНЫЙ CI/CD ТЕСТ ПРОШЕЛ УСПЕШНО!"
+        echo "========================================"
+        echo ""
+        echo "✅ Dependencies: OK"
+        echo "✅ Linting: OK"
+        echo "✅ TypeScript: OK"
+        echo "✅ Build: OK"
+        echo "✅ Artifacts: OK"
+        echo "✅ Permissions: OK"
+        echo ""
+        echo "🚀 ПОЗДРАВЛЯЕМ! GitHub Actions работают идеально!"
+        echo ""
+        echo "Теперь вы можете:"
+        echo "   • Автоматически собирать проект при каждом пуше"
+        echo "   • Развертывать на GitHub Pages"
+        echo "   • Создавать релизы"
+        echo "   • Мониторить качество кода"

@@ -88,12 +88,12 @@ jobs:
         du -sh sait/dist/
 
     - name: Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v4
+      uses: peaceiris/actions-gh-pages@v3  # Используем стабильную версию v3
       if: github.ref == 'refs/heads/main'
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./sait/dist
-        cname: ${{ github.event.repository.name }}.github.io
+        # cname: ${{ github.event.repository.name }}.github.io  # Раскомментируйте для кастомного домена
 
   security:
     runs-on: ubuntu-latest
