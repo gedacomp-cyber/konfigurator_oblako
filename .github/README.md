@@ -127,6 +127,29 @@ chmod +x test-github-actions.sh
 - **npm ci fails**: Используйте `npm install` вместо `npm ci`
 - **Missing package-lock.json**: Файл будет создан автоматически
 - **Node.js version**: Убедитесь, что версия поддерживается
+- **Workflow не запускается**: Проверьте YAML синтаксис (workflow_dispatch должен быть последним)
+- **"workflow_dispatch event trigger"**: Означает, что workflow может быть запущен только вручную
+
+### YAML Синтаксис
+Правильный порядок триггеров:
+```yaml
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  schedule:
+    - cron: '0 9 * * *'
+  workflow_dispatch:  # Всегда последним!
+```
+
+Неправильный порядок:
+```yaml
+on:
+  workflow_dispatch:  # ❌ Не работает с другими триггерами
+  push:
+    branches: [ main ]
+```
 
 
 
