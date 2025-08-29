@@ -1,0 +1,24 @@
+name: Always Run
+
+on:
+  push
+
+jobs:
+  always-run:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Always Run Report
+      run: |
+        echo "🎯 GitHub Actions ALWAYS RUN on ANY PUSH!"
+        echo "=========================================="
+        echo "✅ Repository: ${{ github.repository }}"
+        echo "✅ Branch: ${{ github.ref_name }}"
+        echo "✅ Commit: ${{ github.sha }}"
+        echo "✅ Actor: ${{ github.actor }}"
+        echo ""
+        echo "🚀 This workflow runs on EVERY push to ANY branch!"
+        echo "💡 If you see this, GitHub Actions are working perfectly!"
