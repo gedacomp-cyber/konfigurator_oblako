@@ -18,11 +18,12 @@ jobs:
       with:
         node-version: '20.x'
         cache: 'npm'
-        cache-dependency-path: sait/package-lock.json
 
     - name: Install dependencies
       working-directory: ./sait
-      run: npm ci
+      run: |
+        npm install
+        npm list --depth=0
 
     - name: Build application
       working-directory: ./sait

@@ -27,7 +27,9 @@ jobs:
 
     - name: Install dependencies
       working-directory: ./sait
-      run: npm install
+      run: |
+        npm install
+        npm list --depth=0
 
     - name: Run linter
       working-directory: ./sait
@@ -69,17 +71,29 @@ jobs:
 
     - name: Install dependencies
       working-directory: ./sait
-      run: npm install
+      run: |
+        npm install
+        npm list --depth=0
 
     - name: Build for production
       working-directory: ./sait
       run: npm run build
 
+    - name: Check build output
+      run: |
+        echo "📦 Build artifacts:"
+        ls -la sait/dist/
+        echo ""
+        echo "📊 Build size:"
+        du -sh sait/dist/
+
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v4
+      if: github.ref == 'refs/heads/main'
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./sait/dist
+        cname: ${{ github.event.repository.name }}.github.io
 
   security:
     runs-on: ubuntu-latest
@@ -95,7 +109,9 @@ jobs:
 
     - name: Install dependencies
       working-directory: ./sait
-      run: npm install
+      run: |
+        npm install
+        npm list --depth=0
 
     - name: Run security audit
       working-directory: ./sait

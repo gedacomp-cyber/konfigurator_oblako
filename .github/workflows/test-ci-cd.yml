@@ -1,0 +1,70 @@
+name: Test CI/CD
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+
+jobs:
+  test-full-pipeline:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20.x'
+        cache: 'npm'
+
+    - name: Test dependencies installation
+      working-directory: ./sait
+      run: |
+        echo "📦 Installing dependencies..."
+        npm install
+        echo "✅ Dependencies installed"
+        npm list --depth=0
+
+    - name: Test linting
+      working-directory: ./sait
+      run: |
+        echo "🔍 Running linter..."
+        npm run lint
+        echo "✅ Linting passed"
+
+    - name: Test type checking
+      working-directory: ./sait
+      run: |
+        echo "🔧 Running type check..."
+        npm run type-check
+        echo "✅ Type checking passed"
+
+    - name: Test build
+      working-directory: ./sait
+      run: |
+        echo "🔨 Building application..."
+        npm run build
+        echo "✅ Build completed"
+        ls -la dist/
+
+    - name: Test build artifacts
+      run: |
+        echo "📊 Build analysis:"
+        ls -la sait/dist/
+        echo ""
+        echo "Build size:"
+        du -sh sait/dist/
+
+    - name: Success message
+      run: |
+        echo "🎉 CI/CD Pipeline Test Completed Successfully!"
+        echo ""
+        echo "✅ Dependencies: OK"
+        echo "✅ Linting: OK"
+        echo "✅ TypeScript: OK"
+        echo "✅ Build: OK"
+        echo "✅ Artifacts: OK"
+        echo ""
+        echo "🚀 Ready for production deployment!"
