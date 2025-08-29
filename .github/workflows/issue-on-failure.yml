@@ -2,7 +2,7 @@ name: Create Issue on Build Failure
 
 on:
   workflow_run:
-    workflows: ["CI/CD Pipeline"]
+    workflows: ["CI/CD Pipeline", "Test Workflow"]
     types:
       - completed
 
@@ -72,5 +72,6 @@ jobs:
               labels: ['build-failure', 'automated', 'bug']
             });
           }
+
 
 

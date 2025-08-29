@@ -1,0 +1,36 @@
+name: Test Workflow
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: List files
+      run: |
+        echo "Current directory:"
+        pwd
+        echo "Files in root:"
+        ls -la
+        echo "Files in sait directory:"
+        ls -la sait/
+
+    - name: Check Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20.x'
+
+    - name: Test Node.js
+      run: |
+        node --version
+        npm --version
+
+    - name: Success message
+      run: echo "✅ GitHub Actions are working! This workflow completed successfully."

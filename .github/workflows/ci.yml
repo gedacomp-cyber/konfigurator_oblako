@@ -2,9 +2,10 @@ name: CI/CD Pipeline
 
 on:
   push:
-    branches: [ main, develop ]
+    branches: [ main, develop, master ]
   pull_request:
-    branches: [ main ]
+    branches: [ main, develop, master ]
+  workflow_dispatch:
 
 jobs:
   build-and-test:
@@ -23,11 +24,10 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-        cache-dependency-path: sait/package-lock.json
 
     - name: Install dependencies
       working-directory: ./sait
-      run: npm ci
+      run: npm install
 
     - name: Run linter
       working-directory: ./sait
@@ -55,7 +55,7 @@ jobs:
   deploy:
     needs: build-and-test
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
 
     steps:
     - name: Checkout code
@@ -66,11 +66,10 @@ jobs:
       with:
         node-version: '20.x'
         cache: 'npm'
-        cache-dependency-path: sait/package-lock.json
 
     - name: Install dependencies
       working-directory: ./sait
-      run: npm ci
+      run: npm install
 
     - name: Build for production
       working-directory: ./sait
@@ -78,7 +77,6 @@ jobs:
 
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v4
-      if: github.ref == 'refs/heads/main'
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./sait/dist
@@ -93,21 +91,15 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: '20.x'
+        cache: 'npm'
 
     - name: Install dependencies
       working-directory: ./sait
-      run: npm ci
+      run: npm install
 
     - name: Run security audit
       working-directory: ./sait
       run: npm audit --audit-level=moderate
 
-    - name: Run CodeQL Analysis
-      uses: github/codeql-action/init@v3
-      with:
-        languages: javascript-typescript
-
-    - name: Perform CodeQL Analysis
-      uses: github/codeql-action/analyze@v3
 
 

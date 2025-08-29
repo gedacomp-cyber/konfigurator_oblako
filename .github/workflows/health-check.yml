@@ -5,6 +5,8 @@ on:
     # Run daily at 06:00 UTC
     - cron: '0 6 * * *'
   workflow_dispatch: # Allow manual trigger
+  push:
+    branches: [ main ]
 
 jobs:
   health-check:
@@ -67,5 +69,6 @@ jobs:
         name: health-report
         path: health-report.md
         retention-days: 7
+
 
 
