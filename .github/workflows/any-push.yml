@@ -1,0 +1,25 @@
+name: Any Push Detector
+
+on:
+  push
+
+jobs:
+  any-push:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Any Push Report
+      run: |
+        echo "🎯 ЛЮБОЙ PUSH ОБНАРУЖЕН!"
+        echo "=========================="
+        echo "✅ Репозиторий: ${{ github.repository }}"
+        echo "✅ Ветка: ${{ github.ref_name }}"
+        echo "✅ Коммит: ${{ github.sha }}"
+        echo "✅ Пользователь: ${{ github.actor }}"
+        echo "✅ Событие: ${{ github.event_name }}"
+        echo ""
+        echo "🚀 Этот workflow запускается на ЛЮБОЙ пуш в ЛЮБУЮ ветку!"
+        echo "💡 GitHub Actions работают идеально!"

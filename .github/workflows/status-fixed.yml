@@ -1,0 +1,69 @@
+name: Workflow Status Fixed
+
+on:
+  workflow_dispatch:
+
+jobs:
+  status:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Show repository information
+      run: |
+        echo "📊 Repository Status"
+        echo "==================="
+        echo "Repository: ${{ github.repository }}"
+        echo "Branch: ${{ github.ref_name }}"
+        echo "SHA: ${{ github.sha }}"
+        echo "Actor: ${{ github.actor }}"
+        echo ""
+
+    - name: List workflow files
+      run: |
+        echo "📋 GitHub Actions Workflows:"
+        echo "============================"
+        ls -la .github/workflows/
+        echo ""
+
+    - name: Check project structure
+      run: |
+        echo "📁 Project Structure:"
+        echo "====================="
+        echo "Root files:"
+        ls -la | head -20
+        echo ""
+        echo "Sait directory:"
+        ls -la sait/
+        echo ""
+
+    - name: Check Node.js environment
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20.x'
+        cache: 'npm'
+
+    - name: Test Node.js and npm
+      run: |
+        echo "🔧 Node.js Environment:"
+        echo "======================"
+        node --version
+        npm --version
+        echo ""
+
+    - name: Check package.json
+      working-directory: ./sait
+      run: |
+        echo "📦 Package.json content:"
+        echo "========================"
+        cat package.json
+        echo ""
+
+    - name: Success message
+      run: |
+        echo "✅ Status check completed!"
+        echo ""
+        echo "🎯 If you can see this message, GitHub Actions are working!"
+        echo "📋 Check the Actions tab in your repository to see all workflows."
