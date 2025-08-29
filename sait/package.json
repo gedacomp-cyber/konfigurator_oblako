@@ -41,8 +41,13 @@
   "scripts": {
     "build": "tsc && vite build",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "lint:fix": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0 --fix",
     "preview": "vite preview",
-    "start": "vite"
+    "start": "vite",
+    "test": "echo \"No tests specified yet\" && exit 0",
+    "test:watch": "echo \"No tests specified yet\" && exit 0",
+    "type-check": "tsc --noEmit",
+    "audit": "npm audit --audit-level=moderate"
   },
   "version": "0.1.0"
 }
